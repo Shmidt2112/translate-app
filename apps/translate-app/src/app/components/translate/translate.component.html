@@ -1,0 +1,50 @@
+<div class="tui-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="tui-row tui-row_sme">
+            <div class="tui-col_10">
+                <h3 class="tui-form__header">
+                    Yandex Translate
+                </h3>
+                <div class="tui-form__row tui-form__row_multi-fields">
+                    <div class="tui-form__multi-field">
+                        <button tuiButton appearance="secondary" icon="tuiIconSublevelLarge" type="button" [size]="'s'"
+                            (click)="onPasteClicked($event)">Paste</button>
+                    </div>
+                    <div class="tui-form__multi-field copy-btn-wrapper">
+                        <button tuiButton appearance="secondary" icon="tuiIconCopy" type="button" [size]="'s'"
+                            (click)="onCopyClicked($event)">Copy</button>
+                    </div>
+                </div>
+                <div class="tui-form__row tui-form__row_multi-fields">
+                    <div class="tui-form__multi-field">
+                        <tui-text-area formControlName="from">
+                            From {{ detectedLanguageCode$ | async }}
+                        </tui-text-area>
+                        <tui-error formControlName="from" [error]="[] | tuiFieldError | async"></tui-error>
+                    </div>
+                    <div class="tui-form__multi-field">
+                        <tui-text-area formControlName="to">To</tui-text-area>
+                    </div>
+                </div>
+                <div class="tui-form__row tui-form__row_half-width">
+                    <tui-select class="language" formControlName="languageIsoCode"
+                        [valueContent]="languageIsoCodeContent">
+                        Lang
+                        <tui-data-list-wrapper *tuiDataList [items]="languageIsoCodes"
+                            [itemContent]="languageIsoCodeContent">
+                        </tui-data-list-wrapper>
+                    </tui-select>
+                    <tui-error formControlName="languageIsoCode" [error]="[] | tuiFieldError | async"></tui-error>
+                    <ng-template #languageIsoCodeContent let-item>
+                        <tui-svg class="icon" [src]="getFlagPath(item)"></tui-svg>
+                    </ng-template>
+                </div>
+                <div class="tui-form__buttons">
+                    <button type="submit" tuiButton size="l" type="submit" class="tui-form__button">
+                        Translate
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

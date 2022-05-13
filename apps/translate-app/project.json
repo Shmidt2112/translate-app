@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/translate-app",
         "index": "apps/translate-app/src/index.html",
@@ -15,9 +17,18 @@
         "inlineStyleLanguage": "less",
         "assets": [
           "apps/translate-app/src/favicon.ico",
-          "apps/translate-app/src/assets"
+          "apps/translate-app/src/assets",
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
+          }
         ],
-        "styles": ["apps/translate-app/src/styles.less"],
+        "styles": [
+          "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
+          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+          "apps/translate-app/src/styles.less"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -55,6 +66,10 @@
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "translate-app:build",
+        "proxyConfig": "apps/translate-app/proxy.conf.json"
+      },
       "configurations": {
         "production": {
           "browserTarget": "translate-app:build:production"
@@ -82,7 +97,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/translate-app"],
+      "outputs": [
+        "coverage/apps/translate-app"
+      ],
       "options": {
         "jestConfig": "apps/translate-app/jest.config.ts",
         "passWithNoTests": true

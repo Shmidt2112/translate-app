@@ -1,0 +1,9 @@
+{
+    "/yandex-translate-api/*": {
+        "target": "https://translate.api.cloud.yandex.net",
+        "secure": false,
+        "changeOrigin" : true,  
+        "logLevel": "debug",
+        "pathRewrite": {"^/yandex-translate-api" : ""}
+    }
+}
